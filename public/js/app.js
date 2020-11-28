@@ -11,13 +11,13 @@ const shoppingCartData = {
     },
     "cartProducts": []
 }
-function Watch(props) {
+/*function Watch(props) {
   const watch = props.watch;
   return html`
     <div key=${watch.id} className="col-lg-4 col-md-6 col-mb-4">
       <div className="card h-100">
         <img
-          src=${"https://images.unsplash.com/" + watch.img}
+       src=${"https://images.unsplash.com/" + watch.img}
           className="card-img-top"
           alt="bootstraplogo"
         />
@@ -40,7 +40,37 @@ function Watch(props) {
       </div>
     </div>
   `;
-}
+}*/
+function Watch(props) {
+    const watch = props.watch;
+    return html`
+      <div key=${watch.id} className="col-lg-4 col-md-6 col-mb-4">
+        <div className="card h-100">
+          <img
+         src=${"/img/watches/" + watch.img}
+            className="card-img-top"
+            alt="bootstraplogo"
+          />
+          <div className="card-body">
+            <h5 className="card-title">${watch.name}</h5>
+            <p className="card-text">${watch.description}</p>
+            <p className="card-text">$${watch.price}</p>
+            <p className="card-text">${watch.stars.toFixed(2)} stars</p>
+            <div
+              onClick=${() =>
+                setShoppingCartQuantity(
+                  watch,
+                  currentQuantity => currentQuantity + 1
+                )}
+              className="btn btn-primary"
+            >
+              Add to Cart
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
 function SortCriteria(props) {
   // The below uncommented line is the same as:
   // const name = props.name;
@@ -213,9 +243,15 @@ function ShoppingCartItem(props) {
   const item = props.cartItem;
   return html`
     <div className="row p-2">
-      <img
+    <!--  <img
+          style=${{ width: "100%" }}
+          src=${"https://images.unsplash.com/" + item.img}
+          alt=${item.name}
+        /> 
+        -->
+        <img
         style=${{ width: "100%" }}
-        src=${"https://images.unsplash.com/" + item.img}
+        src=${"/img/watches/" + item.img}
         alt=${item.name}
       />
       <div className="flex-direction-column p-2">
@@ -225,7 +261,7 @@ function ShoppingCartItem(props) {
       </div>
     </div>
   `;
-}
+} 
 function ShoppingCart(props) {
   const items = props.shoppingCart.cartProducts;
   return html`
@@ -317,7 +353,18 @@ window.render = function render() {
     document.getElementById("search")
   );
 };
-fetch('/api/getProducts').then(response => {
+/*fetch('/api/getProducts').then(response => {
+    if (response.ok) {
+        return response.json();
+    } else {
+        throw Error("Something went wrong with that request:", response.statusText);
+    }
+}).then(function (data) {
+  window.watches = data;
+  filteredWatches = watches.products.slice();
+  render();
+});*/
+fetch('/api/Products').then(response => {
     if (response.ok) {
         return response.json();
     } else {
