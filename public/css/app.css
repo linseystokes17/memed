@@ -16,3 +16,6 @@ main > .container {
     overflow-y: auto;
     overflow-x: hidden;
   }
+  .col-lg-4{
+    padding:5
+  }

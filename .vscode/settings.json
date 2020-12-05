@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/e99658e1-ba7e-4d08-9516-679c39dc8456/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/lswatchshop",
+    "appService.deploySubpath": "."
+}

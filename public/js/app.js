@@ -45,7 +45,7 @@ function Watch(props) {
     const watch = props.watch;
     return html`
       <div key=${watch.id} className="col-lg-4 col-md-6 col-mb-4">
-        <div className="card h-100">
+        <div className="card h-30">
           <img
          src=${"/img/watches/" + watch.img}
             className="card-img-top"
