@@ -6,6 +6,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 const indexRoutes = require("./routes/index.js");
 const apiRoutes = require("./routes/api.js");
+const billsRoutes = require("./routes/bills");
+const medicalReportsRoutes = require("./routes/medicalReports");
+const insuranceRoutes = require("./routes/insurance");
 var expressLayouts = require("express-ejs-layouts");
 const sql = require("mssql");
 // order matters
@@ -16,6 +19,9 @@ app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.use("/", indexRoutes);
 app.use("/api", apiRoutes);
+app.use("/bills",billsRoutes);
+app.use("/medicalReports", medicalReportsRoutes);
+app.use("/insurance", insuranceRoutes);
 app.use(express.static("public"));
 async function start() {
   // create the connection to the database

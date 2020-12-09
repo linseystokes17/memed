@@ -8,5 +8,5 @@ router.get("/", (req, res) => {
         // it is passed into the ejs page as the variable 'title'
         title: "MeMED"
     })
-});
+})
 module.exports = router;
