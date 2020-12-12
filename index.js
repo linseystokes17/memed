@@ -1,22 +1,63 @@
 // this looks for .env file in root of project.
 // this require should be the first thing in the file
 require("dotenv").config();
+
+/********************************************************************** 
+  Define Constants and Variables
+**********************************************************************/
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
+
+/***** Routes *****/
 const indexRoutes = require("./routes/index.js");
 const apiRoutes = require("./routes/api.js");
 const billsRoutes = require("./routes/bills");
 const medicalReportsRoutes = require("./routes/medicalReports");
 const insuranceRoutes = require("./routes/insurance");
+
+/***** Layouts *****/
 var expressLayouts = require("express-ejs-layouts");
 const sql = require("mssql");
+
+/***** Authentication *****/
+const flash = require("connect-flash");
+const session = require("express-session");
+const passport = require("passport");
+var cookieParser = require("cookie-parser");
+var bodyParser = require("body-parser");
+
 // order matters
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+); // get information from html forms
+app.use(bodyParser.json());
+app.use(bodyParser.text());
+
+/***** End of Authentication, Setup Views *****/
 // Setup ejs as view engine we need the 'ejs' npm module for this
 app.set("view engine", "ejs");
+require("./routes/auth/passport")(passport); // part of authenication
 // Express-ejs-layouts handles doing layout files and has
 // other nice templating features.
 app.use(expressLayouts);
+app.use( // more authentication
+  session({
+    secret: process.env.SESSION_SECRET,
+    cookie: {
+      // 2 days
+      maxAge: 2 * 24 * 60 * 60 * 1000
+    },
+    saveUninitialized: false,
+    resave: false
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 app.use("/", indexRoutes);
 app.use("/api", apiRoutes);
 app.use("/bills",billsRoutes);
@@ -45,7 +86,7 @@ async function start() {
     });
   app.listen(port, () =>
     console.log(
-      `Example app listening on port ${port}.\nTry opening your browser to http://localhost:${port}`
+      `Example app listening on port ${port}.\nTry opening your browser to http://localhost:${port}!`
     )
   );
 }
