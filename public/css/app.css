@@ -1,5 +1,5 @@
 main > .container {
-    margin-top: 60px;
+    margin-top: 80px;
   }
   .card-title{ text-transform: capitalize;
   }
@@ -18,4 +18,15 @@ main > .container {
   }
   .col-lg-4{
     padding:5
+  }
+
+  .fixed-top{
+    color: white;
+    background-color: #034209;
+  }
+  .nav-link{
+    color: white;
+  }
+  #navbarItem{
+    color: white;
   }
