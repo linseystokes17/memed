@@ -15,6 +15,8 @@ const apiRoutes = require("./routes/api.js");
 const billsRoutes = require("./routes/bills");
 const medicalReportsRoutes = require("./routes/medicalReports");
 const insuranceRoutes = require("./routes/insurance");
+const historyRoutes = require("./routes/history");
+//const insuranceRoutes = require("./routes/insurance");
 
 /***** Layouts *****/
 var expressLayouts = require("express-ejs-layouts");
@@ -63,6 +65,8 @@ app.use("/api", apiRoutes);
 app.use("/bills",billsRoutes);
 app.use("/medicalReports", medicalReportsRoutes);
 app.use("/insurance", insuranceRoutes);
+app.use("/history", historyRoutes);
+
 app.use(express.static("public"));
 async function start() {
   // create the connection to the database

@@ -213,7 +213,7 @@ window.render = function render() {
     html`
       <${Watches} watches=${filteredWatches} />
     `,
-    document.getElementById("displaybillsdiv")
+    document.getElementById("displayhistorydiv")
   );
   // ReactDOM.render(
   //   html`
