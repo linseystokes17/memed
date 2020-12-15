@@ -1,5 +1,5 @@
 {
-    "insurance": [
+    "insurances": [
       {
         "company": "SelectHealth",
         "plan": "Med Benchmark Bronze 8550",
@@ -23,7 +23,7 @@
       {
         "company": "Regence BlueCross BlueShield of Utah",
         "plan": "Bronze Care on Demand 8000 EPO",
-        "img": "regenceblue.jpg?ixlib=rb-1.2.1&auto=format&fit=crop&w=2251&q=80",
+        "img": "regenceblue.png",
         "deductible": 8000,
         "monthly_premium": 363.79,
         "id": 3,

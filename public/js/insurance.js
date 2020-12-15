@@ -8,22 +8,22 @@ function Insurance(props) {
       <div key=${insurance.id} className="col-lg-4 col-md-6 col-mb-4">
         <div className="card h-30">
           <div className="card-body">
+            <img
+           src=${"/img/insurances/" + insurance.img}
+              className="card-img-top"
+              alt="bootstraplogo"
+            />
             <h5 className="card-title">${insurance.company}</h5>
-            <p className="card-text">${insurance.plan}</p>
-            <p className="card-text">$${insurance.deductible}</p>
-            <p className="card-text">$${insurance.monthly_premium}</p>
-            <p className="card-text">${insurance.stars.toFixed(2)} stars</p>
+            <p className="card-text">Plan: ${insurance.plan}</p>
+            <p className="card-text">Deductible: $${insurance.deductible}</p>
+            <p className="card-text">Monthly Premium: $${insurance.monthly_premium}</p>
             
           </div>
         </div>
       </div>
     `;
   }
-          //   <img
-        //  src=${"/img/insurances/" + insurance.img}
-        //     className="card-img-top"
-        //     alt="bootstraplogo"
-        //   />
+
 function SortCriteria(props) {
   // The below uncommented line is the same as:
   // const name = props.name;
@@ -133,7 +133,7 @@ function sortInsurances(insurances, sortProp, sortOrder) {
   });
 }
 function Insurances(props) {
-  const [sortProp, setSortProp] = React.useState("name");
+  const [sortProp, setSortProp] = React.useState("company");
   const [sortOrder, setSortOrder] = React.useState("ascending");
   const insurances = sortInsurances(props.insurances, sortProp, sortOrder);
   return html`
@@ -201,11 +201,11 @@ function Search() {
 // create a copy of insurances;
 let filteredInsurances;
 function filterInsurances(searchTerm) {
-  filteredInsurances = insurances.products.filter(insurance => {
+  filteredInsurances = insurances.insurance_companies.filter(insurance => {
     const lowerSearchTerm = searchTerm;
     return (
-      insurance.description.toLowerCase().includes(lowerSearchTerm) ||
-      insurance.name.toLowerCase().includes(lowerSearchTerm)
+      insurance.plan.toLowerCase().includes(lowerSearchTerm) ||
+      insurance.company.toLowerCase().includes(lowerSearchTerm)
     );
   });
   render();
@@ -219,7 +219,7 @@ window.render = function render() {
   );
 };
 
-fetch('/api/Products').then(response => {
+fetch('/api/Insurance_companies').then(response => {
     if (response.ok) {
         return response.json();
     } else {
@@ -227,6 +227,6 @@ fetch('/api/Products').then(response => {
     }
 }).then(function (data) {
   window.insurances = data;
-  filteredInsurances = insurances.products.slice();
+  filteredInsurances = insurances.insurance_companies.slice();
   render();
 });
