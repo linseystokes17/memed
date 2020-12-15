@@ -16,7 +16,7 @@ const billsRoutes = require("./routes/bills");
 const medicalReportsRoutes = require("./routes/medicalReports");
 const insuranceRoutes = require("./routes/insurance");
 const historyRoutes = require("./routes/history");
-//const insuranceRoutes = require("./routes/insurance");
+const providerRoutes = require("./routes/providers");
 
 /***** Layouts *****/
 var expressLayouts = require("express-ejs-layouts");
@@ -66,6 +66,7 @@ app.use("/bills",billsRoutes);
 app.use("/medicalReports", medicalReportsRoutes);
 app.use("/insurance", insuranceRoutes);
 app.use("/history", historyRoutes);
+app.use("/providers", providerRoutes)
 
 app.use(express.static("public"));
 async function start() {

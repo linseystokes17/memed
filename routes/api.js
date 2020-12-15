@@ -2,7 +2,6 @@ const express = require("express");
 // https://expressjs.com/en/guide/routing.html#express-router
 const router = express.Router();
 const watches = require("./api/watch.json");
-//const insurance = require("./api/insurance.json");
 const sql = require("mssql");
 const sqlFetch = async (...args) => {
   try {
@@ -81,6 +80,33 @@ router.get("/insurance_companies", async (req, res) => {
     `;
   res.json({
     insurance_companies: insurance_companies,
+    count: findAllCount,
+    pageNum: Math.ceil(findAllCount / count)
+  });
+});
+
+router.get("/med_providers", async (req, res) => {
+  const allProductsCount = await sqlFetch`
+            SELECT COUNT(id) as count
+             FROM med_providers
+     `;
+  const findAllCount = allProductsCount[0].count;
+  let [page, count] = getPageAndCount(
+    req.query.page,
+    req.query.count,
+    // get first row of returned results
+    findAllCount
+  );
+  const offset = count * (page - 1);
+  const med_providers = await sqlFetch`
+    SELECT *
+    FROM med_providers
+    ORDER BY id
+    OFFSET ${offset} ROWS
+    FETCH NEXT ${count} ROWS ONLY
+    `;
+  res.json({
+    med_providers: med_providers,
     count: findAllCount,
     pageNum: Math.ceil(findAllCount / count)
   });
