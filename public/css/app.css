@@ -30,3 +30,7 @@ main > .container {
   #navbarItem{
     color: white;
   }
+  .nav-btn{
+    padding: 20;
+    font-size: large;
+  }
