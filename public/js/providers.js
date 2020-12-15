@@ -192,7 +192,7 @@ function Search() {
         placeholder="Search"
         aria-label="Search"
       />
-      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+      <button className="btn-search" id="btn-search" type="submit">
         Search
       </button>
     </form>

@@ -34,3 +34,6 @@ main > .container {
     padding: 20;
     font-size: large;
   }
+  #btn-search{
+    color: white;
+  }

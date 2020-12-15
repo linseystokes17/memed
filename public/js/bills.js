@@ -190,7 +190,7 @@ function Search() {
         placeholder="Search"
         aria-label="Search"
       />
-      <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+      <button className="btn-search" id="btn-search"  type="submit">
         Search
       </button>
     </form>
@@ -215,24 +215,8 @@ window.render = function render() {
     `,
     document.getElementById("displaybillsdiv")
   );
-  // ReactDOM.render(
-  //   html`
-  //     <${TopBar} shoppingCart=${shoppingCartData} />
-  //   `,
-  //   document.getElementById("search")
-  // );
 };
-/*fetch('/api/getProducts').then(response => {
-    if (response.ok) {
-        return response.json();
-    } else {
-        throw Error("Something went wrong with that request:", response.statusText);
-    }
-}).then(function (data) {
-  window.watches = data;
-  filteredWatches = watches.products.slice();
-  render();
-});*/
+
 fetch('/api/Products').then(response => {
     if (response.ok) {
         return response.json();

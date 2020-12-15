@@ -32,7 +32,7 @@
 //                 watch,
 //                 currentQuantity => currentQuantity + 1
 //               )}
-//             className="btn btn-primary"
+//             className="btn-search btn-primary"
 //           >
 //             Add to Cart
 //           </div>
@@ -229,7 +229,7 @@
 //         placeholder="Search"
 //         aria-label="Search"
 //       />
-//       <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
+//       <button className="btn-search  " type="submit">
 //         Search
 //       </button>
 //     </form>
