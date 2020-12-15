@@ -6,6 +6,7 @@
   .image {
     min-height: 100vh;
   }
+  
   .bg-image {
     background-image: url("/img/misty-mountain.jpg");
     background-size: cover;
@@ -39,7 +40,8 @@
     margin-bottom: 0;
     /* Override default `<label>` margin */
     line-height: 1.5;
-    color: #495057;
+    /* color: #495057; */
+    color: #ffff;
     cursor: text;
     /* Match the input under the label */
     border: 1px solid transparent;
@@ -69,7 +71,8 @@
     padding-top: calc(var(--input-padding-y) / 3);
     padding-bottom: calc(var(--input-padding-y) / 3);
     font-size: 12px;
-    color: #777;
+    /* color: #777; */
+    color: #ffff;
   }
   /* Fallback for Edge
   -------------------------------------------------- */
@@ -78,7 +81,8 @@
       display: none;
     }
     .form-label-group input::-ms-input-placeholder {
-      color: #777;
+      /* color: #777; */
+      color: #ffff;
     }
   }
   /* Fallback for IE
@@ -88,6 +92,7 @@
       display: none;
     }
     .form-label-group input:-ms-input-placeholder {
-      color: #777;
+      /* color: #777; */
+      color: #ffff;
     }
   }

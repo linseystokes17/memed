@@ -7,6 +7,9 @@ main > .container {
     text-transform: capitalize;
     display: inline-block;
   }
+  .searchbtn{
+    color: #ffff;
+  }
   img {
     max-width: 100%;
   }
@@ -34,6 +37,8 @@ main > .container {
     padding: 20;
     font-size: large;
   }
-  #btn-search{
-    color: white;
+  .btn-search{
+    background-color: #034209;
+    color: white
+    
   }
