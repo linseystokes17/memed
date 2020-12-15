@@ -2,6 +2,7 @@ const express = require("express");
 // https://expressjs.com/en/guide/routing.html#express-router
 const router = express.Router();
 const watches = require("./api/watch.json");
+const insurance = require("./api/insurance.json");
 const sql = require("mssql");
 const sqlFetch = async (...args) => {
   try {
@@ -48,10 +49,16 @@ function getPageAndCount(usersPage, usersCount, totalItems) {
   page = Math.max(1, page);
   return [page, count];
 }
-router.get("/getProducts", (req, res) => {
+router.get("/getWatches", (req, res) => {
   // renders the index.ejs page
   res.json(watches);
 });
+
+router.get("/getInsurance", (req, res) => {
+  // renders the insurance.ejs page
+  res.json(insurance);
+});
+
 router.get("/products", async (req, res) => {
   const allProductsCount = await sqlFetch`
             SELECT COUNT(id) as count

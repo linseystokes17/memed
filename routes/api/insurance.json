@@ -1,0 +1,36 @@
+{
+    "insurance": [
+      {
+        "company": "SelectHealth",
+        "plan": "Med Benchmark Bronze 8550",
+        "img": "selecthealth.jpg",
+        "deductible": 8550,
+        "monthly_premium": 303.38,
+        "id": 1,
+        "stars": 3,
+        "website": "https://selecthealth.org/"
+      },
+      {
+        "company": "Molina Healthcare",
+        "plan": "Core Care Bronze 2",
+        "img": "molina.jpg",
+        "deductible": 8000,
+        "monthly_premium": 341.33,
+        "id": 2,
+        "stars": 3,
+        "website": "https://www.molinahealthcare.com/"
+      },
+      {
+        "company": "Regence BlueCross BlueShield of Utah",
+        "plan": "Bronze Care on Demand 8000 EPO",
+        "img": "regenceblue.jpg?ixlib=rb-1.2.1&auto=format&fit=crop&w=2251&q=80",
+        "deductible": 8000,
+        "monthly_premium": 363.79,
+        "id": 3,
+        "stars": 3,
+        "website": "https://www.regence.com/home"
+      }
+    ],
+    "count": 8,
+    "pageNum": 2
+  }
