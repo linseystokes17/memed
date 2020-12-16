@@ -216,17 +216,6 @@ window.render = function render() {
     document.getElementById("displaymedicaldiv")
   );
 };
-/*fetch('/api/getProducts').then(response => {
-    if (response.ok) {
-        return response.json();
-    } else {
-        throw Error("Something went wrong with that request:", response.statusText);
-    }
-}).then(function (data) {
-  window.watches = data;
-  filteredWatches = watches.products.slice();
-  render();
-});*/
 fetch('/api/Products').then(response => {
     if (response.ok) {
         return response.json();
