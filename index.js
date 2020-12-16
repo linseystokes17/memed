@@ -15,7 +15,7 @@ const apiRoutes = require("./routes/api.js");
 const billsRoutes = require("./routes/bills");
 const medicalReportsRoutes = require("./routes/medicalReports");
 const insuranceRoutes = require("./routes/insurance");
-const historyRoutes = require("./routes/history");
+//const historyRoutes = require("./routes/history");
 const accountRoutes = require("./routes/account");
 const providerRoutes = require("./routes/providers");
 
@@ -66,7 +66,7 @@ app.use("/api", apiRoutes);
 app.use("/bills",billsRoutes);
 app.use("/medicalReports", medicalReportsRoutes);
 app.use("/insurance", insuranceRoutes);
-app.use("/history", historyRoutes);
+//app.use("/history", historyRoutes);
 app.use("/account", accountRoutes);
 app.use("/providers", providerRoutes)
 

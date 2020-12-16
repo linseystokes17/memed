@@ -2,21 +2,15 @@ import { React, ReactDOM } from "https://unpkg.com/es-react@16.8.60/index.js";
 import htm from "https://unpkg.com/htm@2.2.1/dist/htm.mjs";
 const html = htm.bind(React.createElement);
 
-function Watch(props) {
-    const watch = props.watch;
+function Bill(props) {
+    const bill = props.bill;
     return html`
-      <div key=${watch.id} className="col-lg-4 col-md-6 col-mb-4">
+      <div key=${bill.id} className="col-lg-4 col-md-6 col-mb-4">
         <div className="card h-30">
-          <img
-         src=${"/img/watches/" + watch.img}
-            className="card-img-top"
-            alt="bootstraplogo"
-          />
           <div className="card-body">
-            <h5 className="card-title">${watch.name}</h5>
-            <p className="card-text">${watch.description}</p>
-            <p className="card-text">$${watch.price}</p>
-            <p className="card-text">${watch.stars.toFixed(2)} stars</p>
+            <h5 className="card-title">${bill.date}</h5>
+            <p className="card-text">${bill.description}</p>
+            <p className="card-text">$${bill.outstanding}</p>
           </div>
         </div>
       </div>
@@ -44,7 +38,7 @@ function SortCriteria(props) {
 }
 function SortingOptions(props) {
   const {
-    watch,
+    bill,
     sortProp,
     onSortPropChange,
     sortOrder,
@@ -52,7 +46,7 @@ function SortingOptions(props) {
   } = props;
   // props to exclude from the sort
   const propsExcludedFromSort = new Set(["id", "img"]);
-  const searchableProps = Object.keys(watch)
+  const searchableProps = Object.keys(bill)
     // filter out excluded props
     .filter(keyProperty => !propsExcludedFromSort.has(keyProperty))
     // map the keys/props to React Components.
@@ -103,42 +97,42 @@ function SortingOptions(props) {
     </div>
   `;
 }
-function sortWatches(watches, sortProp, sortOrder) {
-  return watches.sort((focusedWatch, alternateWatch) => {
-    const moveFocusedWatchLeft = -1,
-      moveFocusedWatchRight = 1,
-      dontMoveEitherWatch = 0;
-    if (focusedWatch[sortProp] < alternateWatch[sortProp]) {
+function sortBills(bills, sortProp, sortOrder) {
+  return bills.sort((focusedBill, alternateBill) => {
+    const moveFocusedBillLeft = -1,
+      moveFocusedBillRight = 1,
+      dontMoveEitherBill = 0;
+    if (focusedBill[sortProp] < alternateBill[sortProp]) {
       if (sortOrder === "ascending") {
-        // move focusedWatch left of alternateWatch
-        return moveFocusedWatchLeft;
+        // move focusedBill left of alternateBill
+        return moveFocusedBillLeft;
       } else {
-        // move focusedWatch right of alternateWatch
-        return moveFocusedWatchRight;
+        // move focusedBill right of alternateBill
+        return moveFocusedBillRight;
       }
-    } else if (focusedWatch[sortProp] > alternateWatch[sortProp]) {
+    } else if (focusedBill[sortProp] > alternateBill[sortProp]) {
       if (sortOrder === "ascending") {
-        // move focusedWatch right of alternateWatch
-        return moveFocusedWatchRight;
+        // move focusedBill right of alternateBill
+        return moveFocusedBillRight;
       } else {
-        // move focusedWatch left of alternateWatch
-        return moveFocusedWatchLeft;
+        // move focusedBill left of alternateBill
+        return moveFocusedBillLeft;
       }
     } else {
-      // Both watches are equal don't move either.
-      return dontMoveEitherWatch;
+      // Both bills are equal don't move either.
+      return dontMoveEitherBill;
     }
   });
 }
-function Watches(props) {
+function Bills(props) {
   const [sortProp, setSortProp] = React.useState("name");
   const [sortOrder, setSortOrder] = React.useState("ascending");
-  const watches = sortWatches(props.watches, sortProp, sortOrder);
+  const bills = sortBills(props.bills, sortProp, sortOrder);
   return html`
     <div className="col-12 row">
       <div className="col-12 row">
         <${SortingOptions}
-          watch=${props.watches[0]}
+          bill=${props.bills[0]}
           sortProp=${sortProp}
           sortOrder=${sortOrder}
           onSortPropChange=${(isChecked, sortProperty) => {
@@ -154,9 +148,9 @@ function Watches(props) {
         />
       </div>
       <div className="col-12 row">
-        ${watches.map(function(watch) {
+        ${bills.map(function(bill) {
           return html`
-            <${Watch} key=${watch.id} watch="${watch}" />
+            <${Bill} key=${bill.id} bill="${bill}" />
           `;
         })}
       </div>
@@ -178,7 +172,7 @@ function Search() {
       id="search"
       onSubmit=${e => {
         e.preventDefault();
-        filterWatches(searchTerm);
+        filterBills(searchTerm);
       }}
       className="form-inline my-2 my-lg-0"
     >
@@ -196,14 +190,14 @@ function Search() {
     </form>
   `;
 }
-// create a copy of watches;
-let filteredWatches;
-function filterWatches(searchTerm) {
-  filteredWatches = watches.products.filter(watch => {
+// create a copy of bills;
+let filteredBills;
+function filterBills(searchTerm) {
+  filteredBills = bills.bills.filter(bill => {
     const lowerSearchTerm = searchTerm;
     return (
-      watch.description.toLowerCase().includes(lowerSearchTerm) ||
-      watch.name.toLowerCase().includes(lowerSearchTerm)
+      bill.description.toLowerCase().includes(lowerSearchTerm) ||
+      bill.name.toLowerCase().includes(lowerSearchTerm)
     );
   });
   render();
@@ -211,20 +205,20 @@ function filterWatches(searchTerm) {
 window.render = function render() {
   ReactDOM.render(
     html`
-      <${Watches} watches=${filteredWatches} />
+      <${Bills} bills=${filteredBills} />
     `,
     document.getElementById("displaybillsdiv")
   );
 };
 
-fetch('/api/Products').then(response => {
+fetch('/api/bills').then(response => {
     if (response.ok) {
         return response.json();
     } else {
         throw Error("Something went wrong with that request:", response.statusText);
     }
 }).then(function (data) {
-  window.watches = data;
-  filteredWatches = watches.products.slice();
+  window.bills = data;
+  filteredBills = bills.bills.slice();
   render();
 });

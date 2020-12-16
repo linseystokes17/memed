@@ -80,6 +80,32 @@ router.get("/insurance_companies", async (req, res) => {
   });
 });
 
+router.get("/bills", async (req, res) => {
+  const allProductsCount = await sqlFetch`
+            SELECT COUNT(id) as count
+             FROM bills
+     `;
+  const findAllCount = allProductsCount[0].count;
+  let [page, count] = getPageAndCount(
+    req.query.page,
+    req.query.count,
+    // get first row of returned results
+    findAllCount
+  );
+  const offset = count * (page - 1);
+  const bills = await sqlFetch`
+    SELECT *
+    FROM bills
+    ORDER BY id
+    OFFSET ${offset} ROWS
+    FETCH NEXT ${count} ROWS ONLY
+    `;
+  res.json({
+    bills: bills,
+    count: findAllCount,
+    pageNum: Math.ceil(findAllCount / count)
+  });
+});
 
 router.get("/users", async (req, res) => {
   const allProductsCount = await sqlFetch`
