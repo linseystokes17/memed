@@ -2,21 +2,16 @@ import { React, ReactDOM } from "https://unpkg.com/es-react@16.8.60/index.js";
 import htm from "https://unpkg.com/htm@2.2.1/dist/htm.mjs";
 const html = htm.bind(React.createElement);
 
-function Insurance(props) {
-    const insurance = props.insurance;
+function Report(props) {
+    const report = props.report;
     return html`
-      <div key=${insurance.id} className="col-lg-4 col-md-6 col-mb-4">
+      <div key=${report.id} className="col-lg-4 col-md-6 col-mb-4">
         <div className="card h-30">
           <div className="card-body">
-            <img
-           src=${"/img/insurances/" + insurance.img}
-              className="card-img-top"
-              alt="bootstraplogo"
-            />
-            <h5 className="card-title">${insurance.company}</h5>
-            <p className="card-text">Plan: ${insurance.plan}</p>
-            <p className="card-text">Deductible: $${insurance.deductible}</p>
-            <p className="card-text">Monthly Premium: $${insurance.monthly_premium}</p>
+            <h5 className="card-title">${report.procedure_name}</h5>
+            <p className="card-text">Plan: ${report.procedure_code}</p>
+            <p className="card-text">Price: $${report.price}</p>
+            <p className="card-text">Description: ${report.description}</p>
             
           </div>
         </div>
@@ -46,15 +41,15 @@ function SortCriteria(props) {
 }
 function SortingOptions(props) {
   const {
-    insurance,
+    report,
     sortProp,
     onSortPropChange,
     sortOrder,
     onSortOrderChange
   } = props;
   // props to exclude from the sort
-  const propsExcludedFromSort = new Set(["name", "code"]);
-  const searchableProps = Object.keys(insurance)
+  const propsExcludedFromSort = new Set(["name", "code", "description"]);
+  const searchableProps = Object.keys(report)
     // filter out excluded props
     .filter(keyProperty => !propsExcludedFromSort.has(keyProperty))
     // map the keys/props to React Components.
@@ -105,42 +100,42 @@ function SortingOptions(props) {
     </div>
   `;
 }
-function sortInsurances(insurances, sortProp, sortOrder) {
-  return insurances.sort((focusedInsurance, alternateInsurance) => {
-    const moveFocusedInsuranceLeft = -1,
-      moveFocusedInsuranceRight = 1,
-      dontMoveEitherInsurance = 0;
-    if (focusedInsurance[sortProp] < alternateInsurance[sortProp]) {
+function sortReports(reports, sortProp, sortOrder) {
+  return reports.sort((focusedReport, alternateReports) => {
+    const moveFocusedReportLeft = -1,
+      moveFocusedReportRight = 1,
+      dontMoveEitherReport = 0;
+    if (focusedReport[sortProp] < alternateReports[sortProp]) {
       if (sortOrder === "ascending") {
-        // move focusedinsurance left of alternateinsurance
-        return moveFocusedInsuranceLeft;
+        // move focusedReport left of alternateReports
+        return moveFocusedReportLeft;
       } else {
-        // move focusedinsurance right of alternateinsurance
-        return moveFocusedInsuranceRight;
+        // move focusedReport right of alternateReports
+        return moveFocusedReportRight;
       }
-    } else if (focusedInsurance[sortProp] > alternateInsurance[sortProp]) {
+    } else if (focusedReport[sortProp] > alternateReports[sortProp]) {
       if (sortOrder === "ascending") {
-        // move focusedinsurance right of alternateinsurance
-        return moveFocusedInsuranceRight;
+        // move focusedReport right of alternateReports
+        return moveFocusedReportRight;
       } else {
-        // move focusedinsurance left of alternateinsurance
-        return moveFocusedInsuranceLeft;
+        // move focusedReport left of alternateReports
+        return moveFocusedReportLeft;
       }
     } else {
-      // Both insurances are equal don't move either.
-      return dontMoveEitherInsurance;
+      // Both reports are equal don't move either.
+      return dontMoveEitherReport;
     }
   });
 }
-function Insurances(props) {
+function Reports(props) {
   const [sortProp, setSortProp] = React.useState("company");
   const [sortOrder, setSortOrder] = React.useState("ascending");
-  const insurances = sortInsurances(props.insurances, sortProp, sortOrder);
+  const reports = sortReports(props.reports, sortProp, sortOrder);
   return html`
     <div className="col-12 row">
       <div className="col-12 row">
         <${SortingOptions}
-          insurance=${props.insurances[0]}
+          report=${props.reports[0]}
           sortProp=${sortProp}
           sortOrder=${sortOrder}
           onSortPropChange=${(isChecked, sortProperty) => {
@@ -156,9 +151,9 @@ function Insurances(props) {
         />
       </div>
       <div className="col-12 row">
-        ${insurances.map(function(insurance) {
+        ${reports.map(function(report) {
           return html`
-            <${Insurance} key=${insurance.id} insurance="${insurance}" />
+            <${Report} key=${report.id} report="${report}" />
           `;
         })}
       </div>
@@ -180,7 +175,7 @@ function Search() {
       id="search"
       onSubmit=${e => {
         e.preventDefault();
-        filterInsurances(searchTerm);
+        filterReports(searchTerm);
       }}
       className="form-inline my-2 my-lg-0"
     >
@@ -198,14 +193,14 @@ function Search() {
     </form>
   `;
 }
-// create a copy of insurances;
-let filteredInsurances;
-function filterInsurances(searchTerm) {
-  filteredInsurances = insurances.insurance_companies.filter(insurance => {
+// create a copy of reports;
+let filteredReports;
+function filterReports(searchTerm) {
+  filteredReports = reports.reports.filter(report => {
     const lowerSearchTerm = searchTerm;
     return (
-      insurance.plan.toLowerCase().includes(lowerSearchTerm) ||
-      insurance.company.toLowerCase().includes(lowerSearchTerm)
+      report.plan.toLowerCase().includes(lowerSearchTerm) ||
+      report.company.toLowerCase().includes(lowerSearchTerm)
     );
   });
   render();
@@ -213,20 +208,20 @@ function filterInsurances(searchTerm) {
 window.render = function render() {
   ReactDOM.render(
     html`
-      <${Insurances} insurances=${filteredInsurances} />
+      <${Reports} reports=${filteredReports} />
     `,
-    document.getElementById("displaymedicaldiv")
+    document.getElementById("displayreportsdiv")
   );
 };
 
-fetch('/api/Insurance_companies').then(response => {
+fetch('/api/reports').then(response => {
     if (response.ok) {
         return response.json();
     } else {
         throw Error("Something went wrong with that request:", response.statusText);
     }
 }).then(function (data) {
-  window.insurances = data;
-  filteredInsurances = insurances.insurance_companies.slice();
+  window.reports = data;
+  filteredReports = reports.reports.slice();
   render();
 });
