@@ -2,26 +2,28 @@ import { React, ReactDOM } from "https://unpkg.com/es-react@16.8.60/index.js";
 import htm from "https://unpkg.com/htm@2.2.1/dist/htm.mjs";
 const html = htm.bind(React.createElement);
 
-function Watch(props) {
-    const watch = props.watch;
+function Insurance(props) {
+    const insurance = props.insurance;
     return html`
-      <div key=${watch.id} className="col-lg-4 col-md-6 col-mb-4">
+      <div key=${insurance.id} className="col-lg-4 col-md-6 col-mb-4">
         <div className="card h-30">
-        <img
-        //  src=${"/img/watches/" + watch.img}
-        //     className="card-img-top"
-        //     alt="bootstraplogo"
-        />
           <div className="card-body">
-            <h5 className="card-title">${watch.name}</h5>
-            <p className="card-text">${watch.description}</p>
-            <p className="card-text">$${watch.price}</p>
+            <img
+           src=${"/img/insurances/" + insurance.img}
+              className="card-img-top"
+              alt="bootstraplogo"
+            />
+            <h5 className="card-title">${insurance.company}</h5>
+            <p className="card-text">Plan: ${insurance.plan}</p>
+            <p className="card-text">Deductible: $${insurance.deductible}</p>
+            <p className="card-text">Monthly Premium: $${insurance.monthly_premium}</p>
             
           </div>
         </div>
       </div>
     `;
   }
+
 function SortCriteria(props) {
   // The below uncommented line is the same as:
   // const name = props.name;
@@ -44,15 +46,15 @@ function SortCriteria(props) {
 }
 function SortingOptions(props) {
   const {
-    watch,
+    insurance,
     sortProp,
     onSortPropChange,
     sortOrder,
     onSortOrderChange
   } = props;
   // props to exclude from the sort
-  const propsExcludedFromSort = new Set(["id", "img"]);
-  const searchableProps = Object.keys(watch)
+  const propsExcludedFromSort = new Set(["name", "code"]);
+  const searchableProps = Object.keys(insurance)
     // filter out excluded props
     .filter(keyProperty => !propsExcludedFromSort.has(keyProperty))
     // map the keys/props to React Components.
@@ -103,42 +105,42 @@ function SortingOptions(props) {
     </div>
   `;
 }
-function sortWatches(watches, sortProp, sortOrder) {
-  return watches.sort((focusedWatch, alternateWatch) => {
-    const moveFocusedWatchLeft = -1,
-      moveFocusedWatchRight = 1,
-      dontMoveEitherWatch = 0;
-    if (focusedWatch[sortProp] < alternateWatch[sortProp]) {
+function sortInsurances(insurances, sortProp, sortOrder) {
+  return insurances.sort((focusedInsurance, alternateInsurance) => {
+    const moveFocusedInsuranceLeft = -1,
+      moveFocusedInsuranceRight = 1,
+      dontMoveEitherInsurance = 0;
+    if (focusedInsurance[sortProp] < alternateInsurance[sortProp]) {
       if (sortOrder === "ascending") {
-        // move focusedWatch left of alternateWatch
-        return moveFocusedWatchLeft;
+        // move focusedinsurance left of alternateinsurance
+        return moveFocusedInsuranceLeft;
       } else {
-        // move focusedWatch right of alternateWatch
-        return moveFocusedWatchRight;
+        // move focusedinsurance right of alternateinsurance
+        return moveFocusedInsuranceRight;
       }
-    } else if (focusedWatch[sortProp] > alternateWatch[sortProp]) {
+    } else if (focusedInsurance[sortProp] > alternateInsurance[sortProp]) {
       if (sortOrder === "ascending") {
-        // move focusedWatch right of alternateWatch
-        return moveFocusedWatchRight;
+        // move focusedinsurance right of alternateinsurance
+        return moveFocusedInsuranceRight;
       } else {
-        // move focusedWatch left of alternateWatch
-        return moveFocusedWatchLeft;
+        // move focusedinsurance left of alternateinsurance
+        return moveFocusedInsuranceLeft;
       }
     } else {
-      // Both watches are equal don't move either.
-      return dontMoveEitherWatch;
+      // Both insurances are equal don't move either.
+      return dontMoveEitherInsurance;
     }
   });
 }
-function Watches(props) {
-  const [sortProp, setSortProp] = React.useState("name");
+function Insurances(props) {
+  const [sortProp, setSortProp] = React.useState("company");
   const [sortOrder, setSortOrder] = React.useState("ascending");
-  const watches = sortWatches(props.watches, sortProp, sortOrder);
+  const insurances = sortInsurances(props.insurances, sortProp, sortOrder);
   return html`
     <div className="col-12 row">
       <div className="col-12 row">
         <${SortingOptions}
-          watch=${props.watches[0]}
+          insurance=${props.insurances[0]}
           sortProp=${sortProp}
           sortOrder=${sortOrder}
           onSortPropChange=${(isChecked, sortProperty) => {
@@ -154,9 +156,9 @@ function Watches(props) {
         />
       </div>
       <div className="col-12 row">
-        ${watches.map(function(watch) {
+        ${insurances.map(function(insurance) {
           return html`
-            <${Watch} key=${watch.id} watch="${watch}" />
+            <${Insurance} key=${insurance.id} insurance="${insurance}" />
           `;
         })}
       </div>
@@ -178,7 +180,7 @@ function Search() {
       id="search"
       onSubmit=${e => {
         e.preventDefault();
-        filterWatches(searchTerm);
+        filterInsurances(searchTerm);
       }}
       className="form-inline my-2 my-lg-0"
     >
@@ -190,20 +192,20 @@ function Search() {
         placeholder="Search"
         aria-label="Search"
       />
-      <button className="btn-search" id="btn-search" type="submit">
+      <button className="btn-search" id="btn-search"  type="submit">
         Search
       </button>
     </form>
   `;
 }
-// create a copy of watches;
-let filteredWatches;
-function filterWatches(searchTerm) {
-  filteredWatches = watches.products.filter(watch => {
+// create a copy of insurances;
+let filteredInsurances;
+function filterInsurances(searchTerm) {
+  filteredInsurances = insurances.insurance_companies.filter(insurance => {
     const lowerSearchTerm = searchTerm;
     return (
-      watch.description.toLowerCase().includes(lowerSearchTerm) ||
-      watch.name.toLowerCase().includes(lowerSearchTerm)
+      insurance.plan.toLowerCase().includes(lowerSearchTerm) ||
+      insurance.company.toLowerCase().includes(lowerSearchTerm)
     );
   });
   render();
@@ -211,19 +213,20 @@ function filterWatches(searchTerm) {
 window.render = function render() {
   ReactDOM.render(
     html`
-      <${Watches} watches=${filteredWatches} />
+      <${Insurances} insurances=${filteredInsurances} />
     `,
     document.getElementById("displaymedicaldiv")
   );
 };
-fetch('/api/Products').then(response => {
+
+fetch('/api/Insurance_companies').then(response => {
     if (response.ok) {
         return response.json();
     } else {
         throw Error("Something went wrong with that request:", response.statusText);
     }
 }).then(function (data) {
-  window.watches = data;
-  filteredWatches = watches.products.slice();
+  window.insurances = data;
+  filteredInsurances = insurances.insurance_companies.slice();
   render();
 });
