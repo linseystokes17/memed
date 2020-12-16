@@ -5,14 +5,9 @@ const html = htm.bind(React.createElement);
 function Insurance(props) {
     const insurance = props.insurance;
     return html`
-      <div key=${insurance.id} className="col-lg-4 col-md-6 col-mb-4">
-        <div className="card h-30">
+    <div key=${insurance.id}className="col-lg-4 col-md-6 col-mb-4">
+        <div className="card h-20">
           <div className="card-body">
-            <img
-           src=${"/img/insurances/" + insurance.img}
-              className="card-img-top"
-              alt="bootstraplogo"
-            />
             <h5 className="card-title">${insurance.company}</h5>
             <p className="card-text">Plan: ${insurance.plan}</p>
             <p className="card-text">Deductible: $${insurance.deductible}</p>
@@ -21,6 +16,7 @@ function Insurance(props) {
           </div>
         </div>
       </div>
+
     `;
   }
 
