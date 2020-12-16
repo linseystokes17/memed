@@ -53,11 +53,6 @@ router.get("/getWatches", (req, res) => {
   res.json(watches);
 });
 
-router.get("/getInsurance", (req, res) => {
-  // renders the insurance.ejs page
-  res.json(insurance);
-});
-
 router.get("/insurance_companies", async (req, res) => {
   const allProductsCount = await sqlFetch`
             SELECT COUNT(id) as count
@@ -84,6 +79,36 @@ router.get("/insurance_companies", async (req, res) => {
     pageNum: Math.ceil(findAllCount / count)
   });
 });
+
+
+router.get("/users", async (req, res) => {
+  const allProductsCount = await sqlFetch`
+            SELECT COUNT(id) as count
+             FROM users
+     `;
+  const findAllCount = allProductsCount[0].count;
+  let [page, count] = getPageAndCount(
+    req.query.page,
+    req.query.count,
+    // get first row of returned results
+    findAllCount
+  );
+  const offset = count * (page - 1);
+  const users= await sqlFetch`
+    SELECT *
+    FROM users
+    ORDER BY id
+    OFFSET ${offset} ROWS
+    FETCH NEXT ${count} ROWS ONLY
+    `;
+  res.json({
+    users: users,
+    count: findAllCount,
+    pageNum: Math.ceil(findAllCount / count)
+  });
+});
+
+
 
 router.get("/med_providers", async (req, res) => {
   const allProductsCount = await sqlFetch`
