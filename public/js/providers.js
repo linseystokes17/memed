@@ -17,7 +17,9 @@ function Provider(props) {
             <p className="card-text">Specialty: ${provider.specialty}</p>
             <p className="card-text">Location: ${provider.location}</p>
             <p className="card-text">Description: ${provider.description}</p>
-            
+            <button className="btn-search" id="btn-search"  type="submit"><a href='https://www.ogdenclinic.com/Appointment/RequestAppointment' alt='Broken Link'> learn more</a>
+              
+            </button>
           </div>
         </div>
       </div>
