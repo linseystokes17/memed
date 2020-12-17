@@ -4,14 +4,16 @@ const html = htm.bind(React.createElement);
 
 function Report(props) {
     const report = props.report;
+    const d = report.date.split('T');
     return html`
-      <div key=${report.id} className="col-lg-4 col-md-6 col-mb-4">
+      <div key=${report.id} className="col-lg-10 col-md-6 col-mb-4">
         <div className="card h-30">
           <div className="card-body">
-            <h5 className="card-title">${report.procedure_name}</h5>
-            <p className="card-text">Plan: ${report.procedure_code}</p>
+            <h5 className="card-title">Procedure: ${report.procedure_name}</h5>
+            <p className="card-text">Procedure Code: ${report.procedure_code}</p>
             <p className="card-text">Price: $${report.price}</p>
             <p className="card-text">Description: ${report.description}</p>
+            <p className="card-text" type="datetime-local">Date: ${d[0]}</p>
             
           </div>
         </div>
@@ -48,7 +50,7 @@ function SortingOptions(props) {
     onSortOrderChange
   } = props;
   // props to exclude from the sort
-  const propsExcludedFromSort = new Set(["name", "code", "description"]);
+  const propsExcludedFromSort = new Set(["name", "code", "description", "id"]);
   const searchableProps = Object.keys(report)
     // filter out excluded props
     .filter(keyProperty => !propsExcludedFromSort.has(keyProperty))

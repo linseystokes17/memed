@@ -4,13 +4,15 @@ const html = htm.bind(React.createElement);
 
 function Bill(props) {
     const bill = props.bill;
+    const d = bill.date.split('T');
+
     return html`
-      <div key=${bill.id} className="col-lg-4 col-md-6 col-mb-4">
+      <div key=${bill.id} className="col-lg-10 col-md-6 col-mb-4">
         <div className="card h-30">
           <div className="card-body">
-            <h5 className="card-title">${bill.date}</h5>
-            <p className="card-text">${bill.description}</p>
-            <p className="card-text">$${bill.outstanding}</p>
+            <h5 className="card-title">Procedure: ${bill.description}</h5>
+            <p className="card-text">Date of procedure: ${d[0]}</p>
+            <p className="card-text">Price: $${bill.outstanding}</p>
           </div>
         </div>
       </div>
