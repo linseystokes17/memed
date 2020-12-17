@@ -18,6 +18,7 @@ function Report(props) {
           </div>
         </div>
       </div>
+
     `;
   }
 
