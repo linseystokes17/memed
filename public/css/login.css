@@ -41,7 +41,7 @@
     /* Override default `<label>` margin */
     line-height: 1.5;
     /* color: #495057; */
-    color: #ffff;
+    color: black;
     cursor: text;
     /* Match the input under the label */
     border: 1px solid transparent;
@@ -72,7 +72,7 @@
     padding-bottom: calc(var(--input-padding-y) / 3);
     font-size: 12px;
     /* color: #777; */
-    color: #ffff;
+    color: black;
   }
   /* Fallback for Edge
   -------------------------------------------------- */
@@ -82,7 +82,7 @@
     }
     .form-label-group input::-ms-input-placeholder {
       /* color: #777; */
-      color: #ffff;
+      color: black;
     }
   }
   /* Fallback for IE
@@ -93,6 +93,6 @@
     }
     .form-label-group input:-ms-input-placeholder {
       /* color: #777; */
-      color: #ffff;
+      color: black;
     }
   }
