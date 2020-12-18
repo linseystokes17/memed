@@ -12,12 +12,6 @@ const port = process.env.PORT || 3000;
 /***** Routes *****/
 const indexRoutes = require("./routes/index.js");
 const apiRoutes = require("./routes/api.js");
-const billsRoutes = require("./routes/bills");
-const medicalReportsRoutes = require("./routes/medicalReports");
-const insuranceRoutes = require("./routes/insurance");
-//const historyRoutes = require("./routes/history");
-const accountRoutes = require("./routes/account");
-const providerRoutes = require("./routes/providers");
 
 /***** Layouts *****/
 var expressLayouts = require("express-ejs-layouts");
@@ -63,12 +57,6 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash()); // use connect-flash for flash messages stored in session
 app.use("/", indexRoutes);
 app.use("/api", apiRoutes);
-app.use("/bills",billsRoutes);
-app.use("/medicalReports", medicalReportsRoutes);
-app.use("/insurance", insuranceRoutes);
-//app.use("/history", historyRoutes);
-app.use("/account", accountRoutes);
-app.use("/providers", providerRoutes)
 
 app.use(express.static("public"));
 async function start() {
